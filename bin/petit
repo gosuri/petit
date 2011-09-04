@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'thor'
+require 'petit'
+
+class PetitCommand < Thor
+  include Thor::Actions
+
+  desc "init", "initializes petit for your project"
+  def init # :nodoc:
+    generate_links_file
+    generate_rackup_file
+  end
+
+  desc "server", "starts the petit routing server"
+  def server # :nodoc:
+    Petit::Router.server
+  end
+
+  no_tasks do
+
+    def generate_rackup_file # :nodoc:
+      create_file "config.ru" do
+<<-CONTENT
+require 'petit'
+run Petit::Router.builder
+CONTENT
+      end
+    end
+
+    def generate_config_file # :nodoc:
+      create_file "petit.rb" do
+<<-CONTENT
+Petit.setup do |config|
+# YML file where links are stored
+# config.link_source = "links.yml"
+end
+CONTENT
+    end
+  end
+
+    def generate_links_file # :nodoc:
+      create_file "links.yml" do
+<<-CONTENT
+# Links go here
+# foo: http://bar.com   # => will redirect yourdomain/foo to http://bar.com
+CONTENT
+      end
+    end
+
+  end
+end
+
+PetitCommand.start

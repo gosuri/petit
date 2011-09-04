@@ -1,16 +1,25 @@
-require "petit/version"
-
 module Petit
+  class << self
 
-  # YML files with links
-  mattr_accessor :links_file
-  @@links_file = "links.yml"
+    def link_source=(source)
+      @@link_source = source
+    end
 
-  # Default way to setup petit
-  def self.setup
-    yield self
-  end
+    def link_source
+      @@link_source ||= "links.yml"
+    end
 
-  def server
+    def links(source = link_source)
+      @links ||= YAML::load(File.open(source))
+    end
+
+    # Default way to setup petit
+    def config
+      yield self
+    end
+
   end
 end
+
+require 'petit/router'
+require 'petit/rack_helper'
