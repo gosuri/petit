@@ -1,4 +1,10 @@
+require 'yaml'
+
 module Petit
+
+  autoload :Router,     'petit/router'
+  autoload :RackHelper, 'petit/rack_helper'
+
   class << self
 
     def link_source=(source)
@@ -21,5 +27,3 @@ module Petit
   end
 end
 
-require 'petit/router'
-require 'petit/rack_helper'
