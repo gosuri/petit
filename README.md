@@ -5,10 +5,10 @@ file
 
 ## Highlights
 
-* Your own url-shortner in minutes
+* Your own git friendly url-shortner in minutes
 * Links are precached, extremly fast routing
-* Rack-based -> Deploy with heroku in minutes
-* No Database setup/maintenance
+* Rack-based. Deploy on heroku in minutes
+* No database setup
 
 
 ## Getting Started
@@ -19,7 +19,8 @@ file
 
 ### Initialize in the app directory
 
-This will create links.yml in the current directory
+This will create links.yml and config.ru in the current directory. Won't
+overwrite if you already have them.
 
     petit init
 
@@ -37,9 +38,14 @@ place this in your rackup file
     require 'petit'
     run Petit::Router.builder
 
+## Sample
+
+I use Petit for [g3rg.me](http://gr3g.me). Checkout the [source](https://github.com/gosuri/gr3g.me).
+
+
 ## Copying
 
-Copyright (c) 2011 [Greg Osuri](http://gregosuri.com/about)
+Copyright (c) 2011 [Greg Osuri](http://gr3g.me/about)
 
 This is Free Software distributed under the terms of the MIT license.
 See the file COPYING for information of licensing and distribution.

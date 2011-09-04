@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version     = "0.0.2"
   s.authors     = ["Greg Osuri"]
   s.email       = ["gosuri@gmail.com"]
-  s.homepage    = "http://gosuri.github.com/petit"
+  s.homepage    = "http://gr3g.me/petit"
   s.summary     = %q{a simple, fast, rack-based url shortening server}
   s.description = %q{a simple, fast, rack-based url shortening server}
 
