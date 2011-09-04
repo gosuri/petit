@@ -1,4 +1,5 @@
 require 'yaml'
+require 'petit/core_ext'
 
 module Petit
 
@@ -16,7 +17,15 @@ module Petit
     end
 
     def links(source = link_source)
-      @links ||= YAML::load(File.open(source))
+      unless @links
+        @links = {}
+        links = YAML::load(File.open(source))
+        links.each do |key,url|
+          @links["/#{key}"] = url
+        end
+        @links.rename_key("/root","/")
+      end
+      @links
     end
 
     # Default way to setup petit
