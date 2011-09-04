@@ -4,7 +4,7 @@ require 'rack/mock'
 class TestRouter < Test::Unit::TestCase
 
   def setup
-    @links = {"foo" => "http://bar.com"}
+    @links = {"/foo" => "http://bar.com"}
   end
 
   def test_builder

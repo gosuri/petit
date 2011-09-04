@@ -8,9 +8,9 @@ module Petit
       #   +links+ a hash of links to redirect
       def builder(links = Petit.links)
         @builder ||= Rack::Builder.new do
-          links.each do |key,url|
-            map "/#{key}" do
-              run Proc.new {|env| RackHelper.redirect_response(url)}
+          links.each do |source,dest|
+            map source do
+              run Proc.new {|env| RackHelper.redirect_response(dest)}
            end
           end
         end
