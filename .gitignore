@@ -1,0 +1,6 @@
+.rvmrc
+.autotest
+*.gem
+.bundle
+Gemfile.lock
+pkg/*
