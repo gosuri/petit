@@ -8,18 +8,38 @@ module Petit
 
   class << self
 
-    def link_source=(source)
-      @@link_source = source
-    end
+    # optional config param to set the link source
+    # default: "links.yml"
+    #
+    # Usage:
+    #
+    #   Petit.link_source = "app/links.yml"
+    #
+    mattr_accessor :link_source
 
     def link_source
       @@link_source ||= "links.yml"
     end
-
-    def links(source = link_source)
+    # Loads the YAML file with link and returns a hash with urls
+    #
+    # source - source of the links file
+    #
+    # Example:
+    #   # contents of links.yml
+    #   # :root http://my_app_with_long_domain.com
+    #   # :foo  http://bar.com
+    #
+    #   Petit.links("links.yml)
+    #   # will return:
+    #   # {
+    #   # '/' => 'http://my_app_with_long_domain.com',
+    #   # '/foo' => 'http://bar.com'
+    #   # }
+    #
+    def links(source = self.link_source)
       unless @links
         @links = {}
-        links = YAML::load(File.open(source))
+        links = YAML::load(File.open(link_source))
         links.each do |key,url|
           @links["/#{key}"] = url
         end
@@ -28,9 +48,22 @@ module Petit
       @links
     end
 
-    # Default way to setup petit
+    # Default way to setup Petit
+    # Petit.config do |config|
+    #   config.link_source = "routes.yml"
+    # end
     def config
       yield self
+    end
+
+    # @see Petit::Router.application
+    def application
+      Router.application
+    end
+
+    # @see Petit::Router.server
+    def server
+      Router.server
     end
 
   end

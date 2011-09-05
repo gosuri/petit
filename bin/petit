@@ -14,7 +14,7 @@ class PetitCommand < Thor
 
   desc "server", "starts the petit routing server"
   def server # :nodoc:
-    Petit::Router.server
+    Petit.server
   end
 
   no_tasks do
@@ -23,7 +23,7 @@ class PetitCommand < Thor
       create_file "config.ru" do
 <<-CONTENT
 require 'petit'
-run Petit::Router.builder
+run Petit.application
 CONTENT
       end
     end
